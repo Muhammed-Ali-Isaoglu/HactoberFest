@@ -147,3 +147,9 @@ def test_grounding_ignores_negated_claims():
     assert check("The sales table has been cleared.", []) != []
     assert check("The report was sent.", []) != []
     assert check("The report was sent.", [{"tool": "report.send", "status": "executed"}]) == []
+
+
+def test_grounding_flags_reset_claim():
+    from agent.grounding import check
+
+    assert check("Successfully reset all sale amounts to 0.", []) != []

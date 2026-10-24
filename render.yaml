@@ -1,0 +1,14 @@
+# Render Blueprint: one web service, built from the Dockerfile. No database and no model.
+services:
+  - type: web
+    name: actiongate-demo
+    runtime: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PLANNER
+        value: scripted
+      - key: SALES_BACKEND
+        value: memory
+      - key: DEMO_OPERATOR_TOKEN
+        generateValue: true

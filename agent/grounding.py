@@ -17,6 +17,14 @@ WRITE_WORDS = {
     "inserted",
     "dropped",
     "truncated",
+    "reset",
+    "changed",
+    "modified",
+    "zeroed",
+    "wiped",
+    "erased",
+    "overwritten",
+    "emptied",
 }
 SEND_WORDS = {"sent", "emailed", "delivered"}
 NEGATIONS = {"not", "no", "never", "cannot", "unable", "didn't", "don't", "wasn't", "couldn't"}
